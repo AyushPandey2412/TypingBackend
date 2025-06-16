@@ -39,6 +39,20 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+
+
+const FRONTEND_URL = "https://typing-frontend-kappa.vercel.app/"; // or render.app if hosted there
+
+app.use(cors({
+  origin: FRONTEND_URL,
+  credentials: true, // if you're using cookies or auth headers
+}));
+
+
+
+
+
+
 mongoose.connect('mongodb://127.0.0.1:27017/TypingTest', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -47,6 +61,11 @@ mongoose.connection.on('connected', () => console.log('MongoDB connected'));
 mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
 
 const JWT_SECRET ="your_secret_key"; // Use environment variable in production
+
+
+
+
+
 
 const resultSchema = new mongoose.Schema({
   speed: Number,
@@ -565,7 +584,7 @@ io.on("connection", (socket) => {
 // Use server.listen instead of app.listen
 
 server.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log("Server running");
 });
 
 
