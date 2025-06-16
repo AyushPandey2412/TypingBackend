@@ -41,7 +41,7 @@ app.use(express.json());
 
 
 
-const FRONTEND_URL = "https://typing-frontend-kappa.vercel.app/"; // or render.app if hosted there
+const FRONTEND_URL = "https://typing-frontend-kappa.vercel.app"; // or render.app if hosted there
 
 app.use(cors({
   origin: FRONTEND_URL,
