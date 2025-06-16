@@ -39,17 +39,10 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-// mongoose.connect('mongodb://127.0.0.1:27017/TypingTest', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-// });
-// mongoose.connection.on('connected', () => console.log('MongoDB connected'));
-// mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect('mongodb://127.0.0.1:27017/TypingTest', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
-
 mongoose.connection.on('connected', () => console.log('MongoDB connected'));
 mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
 
@@ -570,6 +563,7 @@ io.on("connection", (socket) => {
 });
 
 // Use server.listen instead of app.listen
+
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
