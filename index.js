@@ -53,12 +53,20 @@ app.use(cors({
 
 
 
-mongoose.connect('mongodb://127.0.0.1:27017/TypingTest', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
-mongoose.connection.on('connected', () => console.log('MongoDB connected'));
-mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
+// mongoose.connect('mongodb://127.0.0.1:27017/TypingTest', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+// });
+// mongoose.connection.on('connected', () => console.log('MongoDB connected'));
+// mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
+
+
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('✅ MongoDB Atlas connected'))
+.catch((err) => console.error('❌ MongoDB connection error:', err));
 
 const JWT_SECRET ="your_secret_key"; // Use environment variable in production
 
