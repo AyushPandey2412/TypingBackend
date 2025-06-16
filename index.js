@@ -1,222 +1,3 @@
-// const express = require('express');
-// const mongoose = require('mongoose');
-// const cors = require('cors');
-// const bcrypt = require('bcryptjs');
-// const jwt = require('jsonwebtoken');
-
-
-// const app = express();
-
-// app.use(cors());
-// app.use(express.json());
-
-// mongoose.connect('mongodb://127.0.0.1:27017/TypingTest', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-// });
-// mongoose.connection.on('connected', () => console.log('MongoDB connected'));
-// mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
-
-
-// const JWT_SECRET ="your_secret_key"; // Use environment variable in production
-
-// // const userSchema = new mongoose.Schema({
-// //   username: String,
-// //   email: { type: String, unique: true },
-// //   password: String,
-// //   roomCode: { type: String, unique: true }  // New field
-// // });
-// // models/User.js
-
-
-// const resultSchema = new mongoose.Schema({
-//   speed: Number,
-//   accuracy: Number,
-//   errors: Number,
-//   category: String,
-//   subCategory: String,
-//   time: Number,
-//   date: { type: Date, default: Date.now }
-// });
-
-// const userSchema = new mongoose.Schema({
-//   username: String,
-//   email: String,
-//   password: String,
-//   roomCode: { type: String, unique: true },
-//   testResults: [resultSchema] // ← Store all typing test results here
-// });
-
-// module.exports = mongoose.model("User", userSchema);
-
-
-// function generateRoomCode(length = 6) {
-//   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-//   let code = '';
-//   for (let i = 0; i < length; i++) {
-//     code += chars.charAt(Math.floor(Math.random() * chars.length));
-//   }
-//   return code;
-// }
-
-
-// app.post('/signup', async (req, res) => {
-//     try {
-//         const { username, email, password } = req.body;
-
-//         if (!username || !email || !password) {
-//             return res.status(400).json({ message: "All fields are required", success: false });
-//         }
-
-//         const existingUser = await User.findOne({ username });
-//         if (existingUser) {
-//             return res.status(400).json({ message: "Username already taken", success: false });
-//         }
-
-//         const hashedPassword = await bcrypt.hash(password, 10);
-
-//         // Generate a unique room code
-//         let roomCode;
-//         let codeExists = true;
-//         while (codeExists) {
-//             roomCode = generateRoomCode();
-//             const existingCode = await User.findOne({ roomCode });
-//             if (!existingCode) codeExists = false;
-//         }
-
-//         const newUser = new User({
-//             username,
-//             email,
-//             password: hashedPassword,
-//             roomCode,
-//         });
-
-//         await newUser.save();
-
-//         return res.status(201).json({ 
-//             message: "Signup successful", 
-//             success: true, 
-//             user: {
-//                 username: newUser.username,
-//                 email: newUser.email,
-//                 roomCode: newUser.roomCode
-//             }
-//         });
-
-//     } catch (err) {
-//         console.error("Signup Error:", err);
-//         return res.status(500).json({ message: "Signup failed", success: false });
-//     }
-// });
-
-
-// app.post('/login', async (req, res) => {
-//     try {
-//         const { username, password } = req.body;
-//         const user = await User.findOne({ username });
-
-//         if (!user) {
-//             return res.status(403).json({ message: "Invalid credentials", success: false });
-//         }
-
-//         const isPasswordValid = await bcrypt.compare(password, user.password);
-//         if (!isPasswordValid) {
-//             return res.status(403).json({ message: "Invalid credentials", success: false });
-//         }
-
-//         // Generate JWT token
-//         const jwttoken = jwt.sign(
-//             { username: user.username, _id: user._id }, 
-//             JWT_SECRET, 
-//             { expiresIn: '7d' }
-//         );
-
-//         // Send back userId in the response
-//         res.status(200).json({
-//             message: "Login successful",
-//             success: true,
-//             jwttoken,
-//             username: user.username,
-//             userId: user._id, // Added userId here
-//             profilePicture: user.profilePicture // Add profile picture here
-//         });
-//     } catch (err) {
-//         console.error("Login error:", err);
-//         res.status(500).json({ message: "Failed login", success: false });
-//     }
-// });
-
-
-// const authenticate = (req, res, next) => {
-//   const token = req.header("Authorization")?.replace("Bearer ", "");
-
-//   if (!token) return res.status(401).json({ error: "Access denied. No token provided." });
-
-//   try {
-//     const decoded = jwt.verify(token, "your_secret_key"); // Use your JWT secret key
-//     req.user = decoded;
-//     next();
-//   } catch (err) {
-//     res.status(400).json({ error: "Invalid token." });
-//   }
-// };
-
-// // Save Typing Test Result Route
-// app.post("/api/save-result", authenticate, async (req, res) => {
-//   try {
-//     const { speed, accuracy, errors, category, subCategory, time } = req.body;
-
-//     const user = await User.findById(req.user._id);
-
-//     if (!user) return res.status(404).json({ error: "User not found." });
-
-//     user.testResults.push({
-//       speed,
-//       accuracy,
-//       errors,
-//       category,
-//       subCategory,
-//       time,
-//     });
-
-//     await user.save();
-
-//     res.status(200).json({ message: "Result saved successfully" });
-//   } catch (error) {
-//     console.error("Error saving result:", error);
-//     res.status(500).json({ error: "Failed to save result" });
-//   }
-// });
-
-
-
-
-
-
-
-
-
-
-
-// app.post('/logout', (req, res) => {
-//     // For cookie-based JWT
-//     res.clearCookie('token');  // Name must match cookie name used
-//     return res.status(200).json({ message: "Logout successful", success: true });
-// });
-
-// app.listen(4000, () => {
-//   console.log(`Server running on http://localhost:4000`);
-// });
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -252,16 +33,23 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const http = require('http');
 const { Server } = require('socket.io');
-
+require('dotenv').config();
 const app = express();
-
+const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb://127.0.0.1:27017/TypingTest', {
+// mongoose.connect('mongodb://127.0.0.1:27017/TypingTest', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+// });
+// mongoose.connection.on('connected', () => console.log('MongoDB connected'));
+// mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
+mongoose.connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
+
 mongoose.connection.on('connected', () => console.log('MongoDB connected'));
 mongoose.connection.on('error', (err) => console.error('MongoDB connection error:', err));
 
@@ -782,7 +570,6 @@ io.on("connection", (socket) => {
 });
 
 // Use server.listen instead of app.listen
-const PORT = 4000;
 server.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
